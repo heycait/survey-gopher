@@ -108,8 +108,21 @@ post '/choices' do
   end
 end
 
+# '/survey/:id/take_survey'
+get '/take_survey/:id' do
+  @survey = Survey.where(id: params[:id]).first
+  erb :take_survey
+end
 
-
+post '/answer' do
+  answer = Answer.new(
+      user_id: current_user.id,
+      question_id: params[:question_id],
+    )
+  if
+    "Thanks for taking this survey"
+  end
+end
 
 
 
