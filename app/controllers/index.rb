@@ -100,7 +100,9 @@ post '/choices' do
     question_id: params[:question_id]
     )
   if choice.save
-    "Hooray! Save!"
+    question = choice.question
+    survey_id = question.survey.id
+    redirect "/survey/#{survey_id}"
   else
     "Boo, not save :("
   end
