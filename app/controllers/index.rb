@@ -66,15 +66,24 @@ get '/survey/:id' do
   erb :survey
 end
 
+# not sure if we need this?
 # get '/question/new' do
 #   erb :question
 # end
 
-# post '/question' do
-#   question = Question.new(
-#       content: params[:content]
-#     )
-# end
+post '/question' do
+  question = Question.new(
+      content: params[:content],
+      survey_id: params[:survey_id]
+    )
+
+  if question.save
+    'you just saved a question'
+  else
+    status 400
+    "cannot save such question"
+  end
+end
 
 
 
