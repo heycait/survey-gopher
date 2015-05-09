@@ -1,5 +1,4 @@
 get '/' do
-
   erb :index
 end
 
@@ -13,6 +12,7 @@ post '/users' do
   user.password = params[:password]
 
   if user.save
+    login(user)
     redirect '/homepage'
   else
     status 400
@@ -64,9 +64,6 @@ end
 get '/survey/:id' do
   @survey = Survey.where(id: params[:id]).first
   @questions = Question.where(survey_id: params[:id])
-
-  @survey.questions
-  @choices = Choice.where(question_id: params[:id])
   erb :survey
 end
 
