@@ -115,13 +115,15 @@ get '/take_survey/:id' do
 end
 
 post '/answer' do
-  answer = Answer.new(
-      user_id: current_user.id,
-      question_id: params[:question_id],
-    )
-  if
-    "Thanks for taking this survey"
-  end
+  # This doesn't work. We're not sure if we're accessing our information correctly. If we are, we apparently, can't use it correctly to create an answer object
+
+  # params.each do |key, value|
+  #   Answer.create!(
+  #     user_id: current_user.id,
+  #     question_id: key.to_i,
+  #     choice_id: value.to_i,
+  #   )
+  # end
 end
 
 

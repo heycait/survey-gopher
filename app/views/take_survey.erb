@@ -4,10 +4,10 @@
 
   <form action="/answer" method="post">
       <% @survey.questions.each do |question| %>
-        <input type="hidden" name="question_id" value="<%= question.id %>"/>
-        <li><%= question.content %></li>
+      <!-- can't pass an object from html back to Ruby -->
+        <strong><li><%= question.content %></li></strong>
           <% question.choices.each do |choice| %>
-            <input type="radio" name="<%= question.id %>" value="<%= choice.content %>" /> <%= choice.content %><br><br>
+            <input type="radio" name="<%= question.id %>" value="<%= choice.id %>" /> <%= choice.content %><br><br>
           <% end %>
       <% end %>
     <input type="submit" value="Submit" />
