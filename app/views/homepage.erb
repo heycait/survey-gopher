@@ -5,3 +5,12 @@
   <input type="submit" value="Logout!" />
 </form>
 
+<%= erb :survey_new %>
+
+<ul>
+  <% @surveys.each do |survey| %>
+    <a href="/survey/<%= survey.id %>"><li><%= survey.title %></li></a>
+  <% end %>
+</ul>
+<!-- <a href="/survey/1">Survey 1</a>
+ -->

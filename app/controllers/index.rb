@@ -37,6 +37,7 @@ post '/login' do
 end
 
 get '/homepage' do
+  @surveys = Survey.where(creator_id: current_user.id)
   erb :homepage
 end
 
@@ -45,11 +46,34 @@ delete '/logout' do
   redirect '/'
 end
 
+get '/survey/new' do
+  erb :survey_new
+end
 
-# get '/survey/new' do
+post '/survey' do
+  survey = Survey.new(
+      creator_id: current_user.id,
+      title: params[:title],
+    )
+  if survey.save
+    "Survey saved!"
+    redirect '/homepage'
+  end
+end
+
+get '/survey/:id' do
+  @survey = Survey.where(id: params[:id]).first
+  erb :survey
+end
+
+# get '/question/new' do
+#   erb :question
 # end
 
-# post '/survey' do
+# post '/question' do
+#   question = Question.new(
+#       content: params[:content]
+#     )
 # end
 
 
