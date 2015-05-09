@@ -9,9 +9,7 @@ helpers do
   end
 
   def current_user
-    if session[:user_id]
-      @current_user ||= User.where(id: session[:user_id]).first
-    end
+    @current_user ||= User.where(id: session[:user_id]).first if session[:user_id]
   end
 
   def logged_in?

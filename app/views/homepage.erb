@@ -1,1 +1,7 @@
-<h1>Welcome to your page user: <%= current_user.email %>!</h1>
+<h1>Welcome to your page user: <%= current_user.email%>!</h1>
+
+<form method="post" action="/logout">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Logout!" />
+</form>
+

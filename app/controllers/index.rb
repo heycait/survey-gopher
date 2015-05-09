@@ -1,7 +1,3 @@
-# CRUD
-# Create Read Update Delete
-
-# this will be our landing page
 get '/' do
 
   erb :index
@@ -32,6 +28,7 @@ post '/login' do
   user = User.where(email: params[:email]).first
   if user && user.password == params[:password]
     login(user)
+
     redirect '/homepage'
   else
     status 400
@@ -42,3 +39,38 @@ end
 get '/homepage' do
   erb :homepage
 end
+
+delete '/logout' do
+  logout!
+  redirect '/'
+end
+
+
+# get '/survey/new' do
+# end
+
+# post '/survey' do
+# end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
