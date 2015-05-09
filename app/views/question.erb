@@ -1,9 +1,7 @@
-<h1>Add a question</h1>
+<h4>Add answer choices</h4>
 
-<form method="post" action="/question">
-  <input type="hidden" name="survey_id" value="<%= params[:id] %>"/>
-  <input type="text" name="content" placeholder="Add question" />
+<form method="post" action="/choices">
+  <input type="hidden" name="question_id" value="<%= params[:id] %>"/>
+  <input type="text" name="content" placeholder="Add choice" />
   <input type="submit" value="Add" />
 </form>
-
-

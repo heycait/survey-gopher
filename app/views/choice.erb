@@ -1,0 +1,7 @@
+<h1><%= @question.title %></h1>
+
+<ol>
+  <% @choices.each do |choice| %>
+    <li><a href="/choice/<%= choice.id %>"><%= choice.content %></a></li>
+  <% end %>
+</ol>

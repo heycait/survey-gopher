@@ -63,6 +63,10 @@ end
 
 get '/survey/:id' do
   @survey = Survey.where(id: params[:id]).first
+  @questions = Question.where(survey_id: params[:id])
+
+  @survey.questions
+  @choices = Choice.where(question_id: params[:id])
   erb :survey
 end
 
@@ -78,16 +82,29 @@ post '/question' do
     )
 
   if question.save
-    'you just saved a question'
+    redirect "/survey/#{params[:survey_id]}"
   else
     status 400
     "cannot save such question"
   end
 end
 
+get '/question/:id' do
+  question = Question.where(id: params[:id]).first
+  erb :question
+end
 
-
-
+post '/choices' do
+  choice = Choice.new(
+    content: params[:content],
+    question_id: params[:question_id]
+    )
+  if choice.save
+    "Hooray! Save!"
+  else
+    "Boo, not save :("
+  end
+end
 
 
 
