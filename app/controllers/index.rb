@@ -4,7 +4,6 @@ end
 
 get '/users/new' do
   erb :user_new
-  # use single quotes inside the double quotes to override white space delimeter
 end
 
 post '/users' do
@@ -57,7 +56,7 @@ post '/survey' do
     )
   if survey.save
     "Survey saved!"
-    redirect '/homepage'
+    redirect "/survey/#{survey.id}"
   end
 end
 
@@ -67,11 +66,6 @@ get '/survey/:id' do
   erb :survey
 end
 
-# not sure if we need this?
-# get '/question/new' do
-#   erb :question
-# end
-
 post '/question' do
   question = Question.new(
       content: params[:content],
@@ -79,7 +73,7 @@ post '/question' do
     )
 
   if question.save
-    redirect "/survey/#{params[:survey_id]}"
+    question.to_json
   else
     status 400
     "cannot save such question"
@@ -88,7 +82,7 @@ end
 
 get '/question/:id' do
   question = Question.where(id: params[:id]).first
-  erb :question
+  erb :new_choice
 end
 
 post '/choices' do

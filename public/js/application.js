@@ -4,4 +4,40 @@ $(document).ready(function() {
   // when we try to bind to them
 
   // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+
+  $('#new_question').on('submit', function(e){
+    e.preventDefault();
+
+    var number = $(this).find('input[name="survey_id"]').val();
+    JSON.stringify(number)
+    var input = $(this).find('input[name="content"]');
+    var value = input.val();
+    input.val('');
+
+    $.ajax({
+      method: 'post',
+      url: '/question',
+      data: {survey_id: number, content: value},
+      success: function(response){
+        question = JSON.parse(response)
+        new_question = buildQuestion(question.content);
+        $('#question_list ol').append(new_question);
+      },
+    });
+
+    // $('.new_choice').on('submit', function(e){
+    //   e.preventDefault();
+
+    // });
+
+  });
+
+
+  function buildQuestion(questionContent) {
+    var questionTemplate = $.trim($('#question_template').html());
+    var $question = $(questionTemplate);
+    $question.closest('li').text(questionContent);
+    return $question;
+  };
+
 });

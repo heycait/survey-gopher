@@ -1,16 +1,38 @@
-<h1><%= @survey.title %></h1>
+<h1>New Survey:</h1>
+<h2><%= @survey.title %></h2>
 
-<ol>
-  <% @questions.each do |question| %>
-    <li>
-      <a href="/question/<%= question.id %>"><%= question.content %></a>
-      <br>
-      <ul>
-        <% question.choices.each do |choice| %>
-          <li><%= choice.content %></li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-</ol>
+
+<div id="question_list">
+  <ol>
+
+    <% @questions.each do |question| %>
+      <li>
+        <%= question.content %>
+        <br>
+        <ul>
+          <% question.choices.each do |choice| %>
+            <li><%= choice.content %></li>
+          <% end %>
+        </ul>
+        <%= erb :new_choice, locals: {id: question.id} %>
+      </li>
+    <% end %>
+
+    <!-- add stuff here -->
+
+  </ol>
+</div>
+
+<div id="question_template" style="display: none;">
+  <li>Question Content
+    <br>
+    <ul>
+
+    </ul>
+  </li>
+<!--   < erb :new_choice, locals: {id: question.id} %> -->
+</div>
+
+
+
 <%= erb :question_new %>
