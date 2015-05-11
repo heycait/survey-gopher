@@ -9,7 +9,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     var number = $(this).find('input[name="survey_id"]').val();
-    JSON.stringify(number)
+    JSON.stringify(number);
     var input = $(this).find('input[name="content"]');
     var value = input.val();
     input.val('');
@@ -24,14 +24,31 @@ $(document).ready(function() {
         $('#question_list ol').append(new_question);
       },
     });
-
-    // $('.new_choice').on('submit', function(e){
-    //   e.preventDefault();
-
-    // });
-
   });
 
+  $('.new_choice').on('submit', function(e){
+    e.preventDefault();
+
+    var $ul = $(this).parent().find('ul');
+
+    var number = $(this).find('input[name="question_id"]').val();
+    JSON.stringify(number);
+    var input = $(this).find('input[name="content"]');
+    var value = input.val();
+    input.val('');
+
+    $.ajax({
+        method: 'post',
+        url: '/choices',
+        data: {question_id: number, content: value},
+        success: function(response){
+          choice = JSON.parse(response)
+          var li = $('<li></li>').text(choice.content);
+          $ul.append(li)
+        },
+      });
+
+  });
 
   function buildQuestion(questionContent) {
     var questionTemplate = $.trim($('#question_template').html());

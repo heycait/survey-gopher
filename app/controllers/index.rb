@@ -86,14 +86,13 @@ get '/question/:id' do
 end
 
 post '/choices' do
-  choice = Choice.new(
+  @choice = Choice.new(
     content: params[:content],
     question_id: params[:question_id]
     )
-  if choice.save
-    question = choice.question
-    survey_id = question.survey.id
-    redirect "/survey/#{survey_id}"
+  if @choice.save
+
+    @choice.to_json
   else
     "Boo, not save :("
   end
