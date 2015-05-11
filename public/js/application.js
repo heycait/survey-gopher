@@ -9,30 +9,31 @@ $(document).ready(function() {
     e.preventDefault();
 
     var number = $(this).find('input[name="survey_id"]').val();
-    JSON.stringify(number);
+    // JSON.stringify(number); NOT SURE WHY I NEEDED THIS BEFORE TO GET EVERYTHING TO WORK. LOOKS LIKE I DON'T NEED IT
     var input = $(this).find('input[name="content"]');
     var value = input.val();
     input.val('');
 
-    $.ajax({
+    var request = $.ajax({
       method: 'post',
       url: '/question',
       data: {survey_id: number, content: value},
-      success: function(response){
-        question = JSON.parse(response)
-        new_question = buildQuestion(question.content);
-        $('#question_list ol').append(new_question);
-      },
     });
+
+    request.done(function(question){
+      $('#question_list ol').append(question);
+    });
+
   });
 
-  $('.new_choice').on('submit', function(e){
+  // $('.new_choice').on('submit', function(e){
+  $('#question_list').on('submit', '.new_choice', function(e){
     e.preventDefault();
 
+    var $question = $(this).find('input[question_id]')
     var $ul = $(this).parent().find('ul');
-
     var number = $(this).find('input[name="question_id"]').val();
-    JSON.stringify(number);
+    // JSON.stringify(number);  NOT SURE WHY I NEEDED THIS BEFORE TO GET EVERYTHING TO WORK. LOOKS LIKE I DON'T NEED IT
     var input = $(this).find('input[name="content"]');
     var value = input.val();
     input.val('');
@@ -45,15 +46,16 @@ $(document).ready(function() {
           choice = JSON.parse(response)
           var li = $('<li></li>').text(choice.content);
           $ul.append(li)
+          $question.val(choice.question_id)
         },
       });
 
   });
 
-  function buildQuestion(questionContent) {
-    var questionTemplate = $.trim($('#question_template').html());
-    var $question = $(questionTemplate);
-    $question.closest('li').text(questionContent);
+  function buildQuestion(question) {
+    var $question = $('#question_template').clone().show();
+    $question.find('.content').text(question.content);
+    $question.find('[name="question_id"]').val(question.id);
     return $question;
   };
 

@@ -1,0 +1,10 @@
+<li>
+  <%= question.content %>
+  <br>
+  <ul>
+    <% question.choices.each do |choice| %>
+      <li><%= choice.content %></li>
+    <% end %>
+  </ul>
+  <%= erb :new_choice, locals: {id: question.id} %>
+</li>

@@ -6,16 +6,7 @@
   <ol>
 
     <% @questions.each do |question| %>
-      <li>
-        <%= question.content %>
-        <br>
-        <ul>
-          <% question.choices.each do |choice| %>
-            <li><%= choice.content %></li>
-          <% end %>
-        </ul>
-        <%= erb :new_choice, locals: {id: question.id} %>
-      </li>
+      <%= erb :question_li, locals: {question: question} %>
     <% end %>
 
     <!-- add stuff here -->
@@ -23,16 +14,7 @@
   </ol>
 </div>
 
-<div id="question_template" style="display: none;">
-  <li>Question Content
-    <br>
-    <ul>
-
-    </ul>
-  </li>
-  <!-- < erb :new_choice, locals: {id: @choice.question_id} %> -->
-</div>
-
-
-
 <%= erb :question_new %>
+
+<br><br>
+<a href="/homepage">Back</a>

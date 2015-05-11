@@ -1,5 +1,9 @@
 get '/' do
-  erb :index
+  if current_user
+    redirect '/homepage'
+  else
+    erb :index
+  end
 end
 
 get '/users/new' do
@@ -73,7 +77,7 @@ post '/question' do
     )
 
   if question.save
-    question.to_json
+    erb :question_li, locals: {question: question}, layout: false
   else
     status 400
     "cannot save such question"
@@ -91,7 +95,6 @@ post '/choices' do
     question_id: params[:question_id]
     )
   if @choice.save
-
     @choice.to_json
   else
     "Boo, not save :("
